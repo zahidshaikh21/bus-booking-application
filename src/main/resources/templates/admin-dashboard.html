@@ -10,10 +10,10 @@
     <h1>Welcome, <span th:text="${session.loggedInUser.username}"></span>!</h1>
 
     <div class="admin-actions">
-        <a href="/manage-buses" class="admin-btn">🚌 Manage Buses</a>
-        <a href="/manage-users" class="admin-btn">👥 Manage Users</a>
-        <a href="/manage-bookings" class="admin-btn">📅 Manage Bookings</a>
-        <a href="/view-reports" class="admin-btn">📊 View Reports</a> <!-- New Reports Page -->
+        <a href="/api/manage-buses" class="admin-btn">🚌 Manage Buses</a>
+        <a href="/api/manage-users" class="admin-btn">👥 Manage Users</a>
+        <a href="/api/manage-bookings" class="admin-btn">📅 Manage Bookings</a>
+        <a href="/api/view-reports" class="admin-btn">📊 View Reports</a> <!-- New Reports Page -->
         <a href="/logout" class="logout-btn">🚪 Logout</a>
     </div>
 </div>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Buses</title>
+    <link rel="stylesheet" href="/css/manage-buses.css">
+</head>
+<body>
+<!-- Top Navigation -->
+<div class="navbar">
+    <h2>Manage Buses</h2>
+    <div class="nav-buttons">
+        <a href="/dashboard" class="add-bus-btn">🔙 Back to Dashboard</a>
+        <a href="/logout" class="logout-btn">🚪 Logout</a>
+    </div>
+</div>
+
+<!-- Bus Table -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Bus Number</th>
+        <th>Bus Name</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Total Seats</th>
+        <th>Fare</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bus : ${buses}">
+        <td th:text="${bus.id}"></td>
+        <td th:text="${bus.busNumber}"></td>
+        <td th:text="${bus.busName}"></td>
+        <td th:text="${bus.source}"></td>
+        <td th:text="${bus.destination}"></td>
+        <td th:text="${bus.totalSeats}"></td>
+        <td th:text="${bus.fare}"></td>
+        <td>
+            <a th:href="@{/manage-buses/edit/{id}(id=${bus.id})}" class="edit-btn">✏️ Edit</a>
+            <a th:href="@{/manage-buses/delete/{id}(id=${bus.id})}" class="delete-btn">🗑️ Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Add Bus Form -->
+<h2>Add Bus</h2>
+<form action="/manage-buses/add" method="post" th:object="${bus}">
+    <label>Bus Number:</label>
+    <input type="text" name="busNumber" required>
+
+    <label>Bus Name:</label>
+    <input type="text" name="busName" required>
+
+    <label>Source:</label>
+    <input type="text" name="source" required>
+
+    <label>Destination:</label>
+    <input type="text" name="destination" required>
+
+    <label>Total Seats:</label>
+    <input type="number" name="totalSeats" required>
+
+    <label>Fare:</label>
+    <input type="number" step="0.01" name="fare" required>
+
+    <button type="submit">Add Bus</button>
+</form>
+</body>
+</html>
