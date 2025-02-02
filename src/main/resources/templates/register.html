@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register - Bus Booking System</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+
+    <!-- Display error message if registration fails -->
+    <div th:if="${error}" class="error-message">[[${error}]]</div>
+
+    <form th:action="@{/api/users/register}" method="post">
+        <div class="input-group">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div class="input-group">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone:</label>
+            <input type="text" name="phone" required>
+        </div>
+
+        <div class="input-group">
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account? <a href="/login">Login here</a></p>
+</div>
+
+</body>
+</html>

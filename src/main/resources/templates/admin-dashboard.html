@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css"> <!-- Admin-specific styles -->
+</head>
+<body>
+<div class="admin-container">
+    <h1>Welcome, <span th:text="${session.loggedInUser.username}"></span>!</h1>
+
+    <div class="admin-actions">
+        <a href="/manage-buses" class="admin-btn">🚌 Manage Buses</a>
+        <a href="/manage-users" class="admin-btn">👥 Manage Users</a>
+        <a href="/manage-bookings" class="admin-btn">📅 Manage Bookings</a>
+        <a href="/view-reports" class="admin-btn">📊 View Reports</a> <!-- New Reports Page -->
+        <a href="/logout" class="logout-btn">🚪 Logout</a>
+    </div>
+</div>
+</body>
+</html>
