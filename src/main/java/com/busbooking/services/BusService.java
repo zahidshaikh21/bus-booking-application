@@ -18,6 +18,10 @@ public class BusService {
         return busRepository.findByOriginAndDestinationAndDepartureDate(origin, destination, date);
     }
 
+    public List<Bus> searchBuses(String origin, String destination) {
+        return busRepository.findByOriginAndDestination(origin, destination);
+    }
+
     public List<Bus> getAllBuses() {
         return busRepository.findAll();
     }
@@ -33,4 +37,5 @@ public class BusService {
     public void deleteBus(Long id) {
         busRepository.deleteById(id);
     }
+
 }

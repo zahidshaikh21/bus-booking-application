@@ -10,4 +10,7 @@ import java.util.List;
 @Repository
 public interface BusRepository extends JpaRepository<Bus, Long> {
     List<Bus> findByOriginAndDestinationAndDepartureDate(String origin, String destination, LocalDate departureDate);
+
+    List<Bus> findByOriginAndDestination(String origin, String destination);
+
 }

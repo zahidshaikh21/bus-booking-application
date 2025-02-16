@@ -2,7 +2,6 @@ package com.busbooking.controller;
 
 import com.busbooking.model.Booking;
 import com.busbooking.model.Bus;
-import com.busbooking.model.User;
 import com.busbooking.model.dto.UserDto;
 import com.busbooking.repository.BookingRepository;
 import com.busbooking.repository.BusRepository;

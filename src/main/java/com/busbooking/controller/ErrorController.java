@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ErrorController {
 
     @GetMapping("/error")
-    public String showErrorPage(@RequestParam(value = "error", required = false) String error, Model model){
+    public String showErrorPage(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
             model.addAttribute("error", "Invalid username or password. Please try again.");
         }

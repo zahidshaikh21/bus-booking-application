@@ -3,70 +3,111 @@
 <head>
     <title>Manage Buses</title>
     <link rel="stylesheet" href="/css/manage-buses.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="..." crossorigin="anonymous">
 </head>
 <body>
-<!-- Top Navigation -->
-<div class="navbar">
-    <h2>Manage Buses</h2>
+
+<div class="header">
+    <h1>Manage Buses</h1>
     <div class="nav-buttons">
-        <a href="/dashboard" class="add-bus-btn">🔙 Back to Dashboard</a>
-        <a href="/logout" class="logout-btn">🚪 Logout</a>
+        <a href="/api/admin/dashboard" class="add-bus-btn">Back to Dashboard</a>
+        <a href="/logout" class="logout-btn">Logout</a>
     </div>
 </div>
 
-<!-- Bus Table -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Bus Number</th>
-        <th>Bus Name</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Total Seats</th>
-        <th>Fare</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="bus : ${buses}">
-        <td th:text="${bus.id}"></td>
-        <td th:text="${bus.busNumber}"></td>
-        <td th:text="${bus.busName}"></td>
-        <td th:text="${bus.source}"></td>
-        <td th:text="${bus.destination}"></td>
-        <td th:text="${bus.totalSeats}"></td>
-        <td th:text="${bus.fare}"></td>
-        <td>
-            <a th:href="@{/manage-buses/edit/{id}(id=${bus.id})}" class="edit-btn">✏️ Edit</a>
-            <a th:href="@{/manage-buses/delete/{id}(id=${bus.id})}" class="delete-btn">🗑️ Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="main-content">
+    <div class="table-section">
+        <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
 
-<!-- Add Bus Form -->
-<h2>Add Bus</h2>
-<form action="/manage-buses/add" method="post" th:object="${bus}">
-    <label>Bus Number:</label>
-    <input type="text" name="busNumber" required>
+        <h2>Bus List</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Bus Name</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Date</th>
+                <th>Arrival Time</th>
+                <th>Departure Time</th>
+                <th>Total Seats</th>
+                <th>Fare</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bus : ${buses}" th:attr="data-bus-id=${bus.busId}">
+                <td th:text="${bus.busId}"></td>
+                <td th:text="${bus.busName}" th:id="'busName-' + ${bus.busId}" contenteditable="false"></td>
+                <td th:text="${bus.origin}" th:id="'origin-' + ${bus.busId}" contenteditable="false"></td>
+                <td th:text="${bus.destination}" th:id="'destination-' + ${bus.busId}" contenteditable="false"></td>
+                <td th:text="${#temporals.format(bus.departureDate, 'yyyy-MM-dd')}"
+                    th:id="'departureDate-' + ${bus.busId}" contenteditable="false"></td>
+                <td th:text="${#temporals.format(bus.arrivalTime, 'HH:mm')}" th:id="'arrivalTime-' + ${bus.busId}"
+                    contenteditable="false"></td>
+                <td th:text="${#temporals.format(bus.departureTime, 'HH:mm')}" th:id="'departureTime-' + ${bus.busId}"
+                    contenteditable="false"></td>
+                <td th:text="${bus.seatsAvailable}" th:id="'seatsAvailable-' + ${bus.busId}"
+                    contenteditable="false"></td>
+                <td th:text="${bus.fare}" th:id="'fare-' + ${bus.busId}" contenteditable="false"></td>
+                <td>
+                    <a href="#" th:id="'edit-' + ${bus.busId}" class="edit-btn" onclick="editRow(this)">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="#" class="delete-btn" th:onclick="|return confirmDelete(${bus.busId})|">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <label>Bus Name:</label>
-    <input type="text" name="busName" required>
+    <div class="form-section">
+        <h2>Add Bus</h2>
+        <form action="/api/manage-buses/add" method="post" th:object="${bus}">
+            <label>Bus Name:</label>
+            <input type="text" name="busName" required>
 
-    <label>Source:</label>
-    <input type="text" name="source" required>
+            <label>Source:</label>
+            <select name="origin" required>
+                <option value="">Select Source City</option>
+                <option th:each="city : ${maharashtraCities}" th:value="${city}" th:text="${city}"></option>
+            </select>
 
-    <label>Destination:</label>
-    <input type="text" name="destination" required>
+            <label>Destination:</label>
+            <select name="destination" required>
+                <option value="">Select Destination City</option>
+                <option th:each="city : ${maharashtraCities}" th:value="${city}" th:text="${city}"></option>
+            </select>
 
-    <label>Total Seats:</label>
-    <input type="number" name="totalSeats" required>
+            <label>Date:</label>
+            <input type="text" id="datepicker" name="departureDate" required>
 
-    <label>Fare:</label>
-    <input type="number" step="0.01" name="fare" required>
+            <label>Arrival Time:</label>
+            <input type="time" name="arrivalTime" required>
 
-    <button type="submit">Add Bus</button>
-</form>
+            <label>Departure Time:</label>
+            <input type="time" name="departureTime" required>
+
+            <label>Total Seats:</label>
+            <input type="number" name="seatsAvailable" required>
+
+            <label>Fare:</label>
+            <input type="number" step="0.01" name="fare" required>
+
+            <div class="button-container">
+                <button type="submit">Add Bus</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script src="/js/manage-buses.js"></script>
 </body>
 </html>

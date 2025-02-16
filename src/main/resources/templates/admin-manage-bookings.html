@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Bookings</title>
+    <link rel="stylesheet" href="/css/admin-manage-bookings.css">
+</head>
+<body>
+<div class="header">
+    <h1>Manage Bookings</h1>
+    <div class="nav-buttons">
+        <a href="/api/admin/dashboard" class="admin-btn">Back to Dashboard</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+<div class="admin-container">
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Bus</th>
+            <th>Booking Date</th>
+            <th>Seats Booked</th>
+            <th>Seat Numbers</th>
+            <th>Total Fare</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="booking : ${bookings}" th:data-booking-id="${booking.bookingId}">
+            <td th:text="${booking.bookingId}"></td>
+            <td th:text="${booking.user.username}" contenteditable="false" id="user-${booking.bookingId}"></td>
+            <td th:text="${booking.bus.busName}" contenteditable="false" id="bus-${booking.bookingId}"></td>
+            <td th:text="${#temporals.format(booking.bookingDate, 'yyyy-MM-dd HH:mm')}" contenteditable="false"
+                id="bookingDate-${booking.bookingId}"></td>
+            <td th:text="${booking.seatsBooked}" contenteditable="false" id="seatsBooked-${booking.bookingId}"></td>
+            <td th:text="${booking.seatNumbers}" contenteditable="false" id="seatNumbers-${booking.bookingId}"></td>
+            <td th:text="${booking.totalFare}" contenteditable="false" id="totalFare-${booking.bookingId}"></td>
+            <td>
+                <button class="edit-btn" th:data-booking-id="${booking.bookingId}" onclick="enableEditMode(this)">Edit
+                </button>
+                <button class="save-btn" th:data-booking-id="${booking.bookingId}" style="display: none;"
+                        onclick="saveRow(this)">Save
+                </button>
+                <button class="cancel-btn" th:data-booking-id="${booking.bookingId}" style="display: none;"
+                        onclick="cancelEditMode(this)">Cancel
+                </button>
+                <button class="delete-btn" th:data-booking-id="${booking.bookingId}" onclick="deleteBooking(this)">
+                    Delete
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/admin-manage-bookings.js"></script>
+
+</body>
+</html>

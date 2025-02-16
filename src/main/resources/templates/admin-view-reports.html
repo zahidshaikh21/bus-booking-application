@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Reports</title>
+    <link rel="stylesheet" href="/css/admin-view-reports.css">
+</head>
+<body>
+<div class="header">
+    <h1>View Reports</h1>
+    <div class="nav-buttons">
+        <a href="/api/admin/dashboard" class="admin-btn">Back to Dashboard</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+<div class="admin-container">
+    <h2>Bookings Report for <span th:text="${#temporals.format(reportDate, 'yyyy-MM-dd')}"></span></h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Booking Date</th>
+            <th>Booking Count</th>
+            <th>Total Fare</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="report : ${bookingsByDate}">
+            <td th:text="${report.bookingDate}"></td>
+            <td th:text="${report.bookingCount}"></td>
+            <td th:text="${report.totalFare}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Total Revenue</h2>
+    <p th:text="${totalRevenue}"></p>
+
+</div>
+</body>
+</html>

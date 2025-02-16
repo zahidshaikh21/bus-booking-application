@@ -1,0 +1,174 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    margin: 20px; /* Remove default body margin for full width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.admin-container {
+    width: 100%; /* Make the container take full width */
+    max-width: none; /* Remove max-width restriction */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    /* border-radius: 10px;  */ /* Remove border radius */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    box-sizing: border-box;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px; /* Remove border radius */
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header h1 {
+    color: white;
+    margin: 0;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-btn, .logout-btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff; /* Blue button */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.logout-btn {
+    background-color: #dc3545; /* Red logout button */
+}
+
+.admin-btn:hover, .logout-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    opacity: 0.9;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Space above the table */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for the table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Hide overflowing content for rounded corners */
+}
+
+th, td {
+    padding: 12px 15px; /* Increased padding */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: white; /* White background for cells */
+}
+
+th {
+    background-color: #f8f9fa; /* Light gray background for header */
+    font-weight: 600; /* Slightly bolder font */
+    color: #333; /* Darker text color */
+    text-transform: uppercase; /* Uppercase table headers */
+}
+
+tr:hover {
+    background-color: #f5f5f5; /* Light hover effect on rows */
+}
+
+/* Button Styles (Consistent with Manage Buses) */
+.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px; /* Adjusted padding */
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500; /* Slightly less bold */
+    font-size: 14px;
+    margin: 0 4px; /* Increased margin */
+    cursor: pointer;
+    transition: opacity 0.3s; /* Smooth transition for hover */
+    border: none; /* Remove default button border */
+}
+
+.edit-btn {
+    background-color: #007bff; /* Blue edit button */
+    color: white;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Red delete button */
+    color: white;
+}
+
+.save-btn {
+    background-color: #28a745; /* Green save button */
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #6c757d; /* Gray cancel button */
+    color: white;
+}
+
+.edit-btn:hover, .delete-btn:hover, .save-btn:hover, .cancel-btn:hover {
+    opacity: 0.8;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Responsive Design (Adjust as needed) */
+@media (max-width: 768px) {
+    .admin-container {
+        width: 95%; /* Adjust container width on smaller screens */
+        padding: 15px;
+    }
+
+    table {
+        font-size: 14px; /* Smaller font size for table on smaller screens */
+    }
+
+    th, td {
+        padding: 10px 12px; /* Adjust cell padding */
+    }
+
+    .admin-actions {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center buttons horizontally */
+    }
+
+    .admin-btn, .logout-btn {
+        width: 100%; /* Full width buttons on smaller screens */
+    }
+}

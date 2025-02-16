@@ -1,6 +1,5 @@
 package com.busbooking.security;
 
-import com.busbooking.model.User;
 import com.busbooking.model.dto.UserDto;
 import com.busbooking.services.UserService;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +43,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF (for now)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/api/users/register", "/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/api/users/register", "/register", "/login", "/css/**", "/static/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -62,7 +61,7 @@ public class SecurityConfig {
                             if (role.contains("ADMIN")) {
                                 response.sendRedirect("api/admin/dashboard"); // Admin dashboard
                             } else {
-                                response.sendRedirect("api/users/dashboard"); // User dashboard
+                                response.sendRedirect("/api/user/dashboard"); // User dashboard
                             }
                         })
                         .failureUrl("/login?error=true") // Redirect to login page with error

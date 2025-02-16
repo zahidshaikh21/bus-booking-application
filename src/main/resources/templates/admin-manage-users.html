@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="/css/admin-manage-users.css">
+</head>
+<body>
+<div class="header"><h1>Manage Users</h1>
+    <div class="nav-buttons">
+        <a href="/api/admin/dashboard" class="admin-btn">Back to Dashboard</a>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+<div class="admin-container">
+
+
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}" th:data-user-id="${user.id}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}" contenteditable="false" id="username-${user.id}"></td>
+            <td th:text="${user.email}" contenteditable="false" id="email-${user.id}"></td>
+            <td th:text="${user.phone}" contenteditable="false" id="phone-${user.id}"></td>
+            <td th:text="${user.roles}" contenteditable="false" id="roles-${user.id}"></td>
+            <td>
+                <button class="edit-btn" th:data-user-id="${user.id}" onclick="enableEditMode(this)">Edit</button>
+                <button class="save-btn" th:data-user-id="${user.id}" style="display: none;" onclick="saveRow(this)">
+                    Save
+                </button>
+                <button class="cancel-btn" th:data-user-id="${user.id}" style="display: none;"
+                        onclick="cancelEditMode(this)">Cancel
+                </button>
+                <button class="delete-btn" th:data-user-id="${user.id}" onclick="deleteUser(this)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="/js/admin-manage-users.js"></script>
+
+</body>
+</html>

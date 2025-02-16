@@ -8,8 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AuthController {
@@ -26,13 +24,6 @@ public class AuthController {
         return "register";
     }
 
-//    @PostMapping("/register")
-//    public String registerUser(@RequestParam String username,
-//                               @RequestParam String password,
-//                               @RequestParam String roles) {
-//        userService.registerUser(username, password, roles);
-//        return "redirect:/login";
-//    }
 
     @GetMapping("/login")
     public String showLoginForm() {

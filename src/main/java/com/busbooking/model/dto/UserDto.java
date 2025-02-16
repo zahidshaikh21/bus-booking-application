@@ -15,11 +15,22 @@ public class UserDto implements UserDetails {
 
     private String userName;
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    private Long id;
     private List<GrantedAuthority> authorities;
 
     public UserDto(User user) {
         this.userName = user.getUsername();
         this.password = user.getPassword();
+        this.id = user.getId();
         // Split roles by comma and map them to GrantedAuthority
         this.authorities = Arrays.stream(
                         (user.getRoles() != null ? user.getRoles() : Role.USER.name()).split(","))
