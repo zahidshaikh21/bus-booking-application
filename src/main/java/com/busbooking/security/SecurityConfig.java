@@ -43,7 +43,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF (for now)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/api/users/register", "/register", "/login", "/css/**", "/static/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/api/user/dashboard/register", "/register", "/login", "/css/**", "/static/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

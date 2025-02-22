@@ -2,10 +2,12 @@ package com.busbooking.controller;
 
 import com.busbooking.model.Booking;
 import com.busbooking.model.Bus;
+import com.busbooking.model.User;
 import com.busbooking.model.dto.UserDto;
 import com.busbooking.model.util.CityUtils;
 import com.busbooking.services.BookingService;
 import com.busbooking.services.BusService;
+import com.busbooking.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/api/user/dashboard")
@@ -28,6 +31,9 @@ public class UserController {
 
     @Autowired
     private BusService busService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String userDashboard(Model model, HttpSession session) {
@@ -91,6 +97,22 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Booking failed: " + e.getMessage()));
         }
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user) {
+        // Check if user already exists
+        Optional<User> existingUser = userService.findByUsername(user.getUsername());
+        if (existingUser.isPresent()) {
+//            model.addAttribute("error", "Username is already taken!");
+            return "register"; // Return to the registration page with an error
+        }
+
+        // Register the new user
+        System.out.println(user.getPassword());
+        userService.registerUser(user);
+
+        return "redirect:/login"; // Redirect to login after successful registration
     }
 
 
