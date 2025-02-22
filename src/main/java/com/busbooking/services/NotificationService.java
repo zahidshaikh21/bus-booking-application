@@ -34,7 +34,7 @@ public class NotificationService {
             helper.setText("Dear " + booking.getUser().getUsername() + ",\n\n" +
                     "Your seat " + booking.getSeatNumbers() + " on bus " +
                     booking.getBus().getBusId() + " is confirmed.\n\n" +
-                    "Total Fare: $" + booking.getTotalFare() + "\n\n" +
+                    "Total Fare: ₹" + booking.getTotalFare() + "\n\n" +
                     "Thank you for booking with us!");
 
             mailSender.send(message);
